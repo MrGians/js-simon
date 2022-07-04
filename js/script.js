@@ -44,9 +44,9 @@ console.log("Simon's Numbers: " + simonNumbers);
 for (let i = 0; i < simonNumbers.length; i++) {
   const numberElement = document.createElement("li");
   numberElement.append(simonNumbers[i])
-  console.log(numberElement)
   displaySimonNumbers.appendChild(numberElement);
 }
+
 
 // Preparo il valore di partenza del Countdown e lo stampo in pagina
 let seconds = 3;
@@ -56,14 +56,29 @@ displayCountdown.innerText = seconds;
 const countdown = setInterval(() => {
 
   displayCountdown.innerText = --seconds;
-  // Se il Countdown arriva a 0, si ferma, nasconde i numeri a schermo e chiede all'utente di inserire i numeri precedentemente visti
+  // Se il Countdown arriva a 0, si ferma e nasconde i numeri a schermo
   if(seconds === 0) {
     // Ferma il countdown
-    clearInterval(countdown)
- 
+    clearInterval(countdown);
     // I numeri vengono nascosti
     displaySimonNumbers.classList.add("d-none");
-    
-  };
-
+  }
 }, 1000);
+
+
+// Definisco un array che conterrà i numeri scelti dell'utente
+const userNumbers = [];
+// Imposto un prompt che chieda all'utente i numeri visti precedentemente 0.5s dopo la fine del Countdown
+const userPromptDelayed = setTimeout(() => {
+  // Creo un ciclo for per chiedere all'utente N numeri tante volte quanti i precedenti numeri visti a schermo
+  for (let i = 1; i <= simonNumbers.length; i++) {
+    let userNumber;
+    do {
+      userNumber = parseInt(prompt(`Inserisci uno dei numeri visti precedentemente. [Giro: ${i}/5]`))
+    } while (isNaN(userNumber)) // Verifico che venga inserito un valore "number"
+
+    // Inserisco il numero nell'array UserNumbers
+    userNumbers.push(userNumber);
+  }
+  console.log("I numeri che ho scelto: " + userNumbers);
+}, seconds * 1000 + 500);
