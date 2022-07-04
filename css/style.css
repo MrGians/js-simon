@@ -1,2 +1,21 @@
 /*********** Generics ***********/
+body {background-color: lightslategray;}
 
+#simon-game {
+  width: 500px;
+  padding: 1rem;
+  margin: 50px auto 0;
+  background-color: beige;
+  text-align: center;
+}
+
+#simon-game #countdown {font-size: 10rem;}
+
+#simon-game #simon-number {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  font-size: 4rem;
+}
+
+#simon-game #simon-number li {display: inline-block}
