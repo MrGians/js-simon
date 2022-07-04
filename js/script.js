@@ -4,10 +4,10 @@
 // Dopo che sono stati inseriti i 5 numeri, il software dice quanti e quali dei numeri da indovinare sono stati individuati.
 
 
-// 1 -Visualizzare 5 numeri casuali in pagina diversi tra di loro
-// 2 - Parte un timer di 30 secondi
-// 3 - Dopo i 30 secondi i numeri spariscono
-// 4 - Dopo la sparizione all'utente appariranno 5 prompt dove dovrà inserire i numeri precedentemente visti
+// OK 1 -Visualizzare 5 numeri casuali in pagina diversi tra di loro
+// OK 2 - Parte un timer di 30 secondi
+// OK 3 - Dopo i 30 secondi i numeri spariscono
+// OK 4 - Dopo la sparizione all'utente appariranno 5 prompt dove dovrà inserire i numeri precedentemente visti
 // 5 - Dopo l'inserimento dei numeri confrontare Numeri Casuali con Numeri Utente
 // 5.1 - Ogni corrispondenza genera 1 punto, fino ad un massimo di 5 punti
 // 6 - Stampare il risultato ottenuto dall'utente 
@@ -34,6 +34,22 @@ const createUniqueRandomNumbers = (max) => {
   // Restituisco l'array di numeri
   return numbers;
 };
+
+// Creo una funzione che controlli il punteggio totalizzato dall'utente
+const checkUserScore = (userNumbers, gameNumbers) => {
+  // Definisco una variabile che tenga conto del punteggio utente
+  let score = 0;
+  // Prendo ogni numero dell'array gameNumbers e lo confronto con ogni numero dell'array userNumbers
+  for (let i = 0; i < gameNumbers.length; i++) {
+    for (let j = 0; j < userNumbers.length; j++) {
+      // Per ogni numero corretto viene incrementato di 1 il punteggio utente
+      if (gameNumbers[i] === userNumbers[j]) {score++};
+    }
+  }
+  
+  // Restituisco il punteggio totalizzato dall'utente
+  return score;
+}
 
 // ------------------------------------- SIMON'S GAME ------------------------------------- //
 
@@ -81,4 +97,15 @@ const userPromptDelayed = setTimeout(() => {
     userNumbers.push(userNumber);
   }
   console.log("I numeri che ho scelto: " + userNumbers);
+  
+  // Se entrambi gli array contengono entrambi N numeri, allora verifico il punteggio utente
+  if (userNumbers.length == simonNumbers.length) {
+    // Calcolo il punteggio utente tramite la funzione checkUserScore
+    const checkScore = checkUserScore(userNumbers, simonNumbers);
+    alert("Il tuo punteggio è: " + checkScore);
+    console.log("Il tuo punteggio è: " + checkScore);
+  }
+
 }, seconds * 1000 + 500);
+
+
