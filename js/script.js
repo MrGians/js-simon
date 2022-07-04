@@ -11,3 +11,59 @@
 // 5 - Dopo l'inserimento dei numeri confrontare Numeri Casuali con Numeri Utente
 // 5.1 - Ogni corrispondenza genera 1 punto, fino ad un massimo di 5 punti
 // 6 - Stampare il risultato ottenuto dall'utente 
+
+
+// Dichiaro variabili DOM
+const displaySimonNumbers = document.getElementById("simon-number");
+const displayCountdown = document.getElementById("countdown");
+
+// ------------------------------------- FUNCTION ------------------------------------- //
+
+// Creo una funzione che generi 5 numeri casuali
+const createUniqueRandomNumbers = (max) => {
+  // Creo un array che conterrà i 5 numeri casuali
+  const numbers = [];
+  // Creo un Ciclo FOR per inserire i numeri all'interno dell'array
+  for (let i = 0; i < 5; i++) {
+    // Genero un numero casuale
+    let randomNumber = Math.floor(Math.random() * max) + 1;
+    // Verifico che il numero non sia già presente nell'array, altrimenti ripeto il giro
+    if (numbers.includes(randomNumber)) {i--}
+    else {numbers.push(randomNumber)}
+  }
+  // Restituisco l'array di numeri
+  return numbers;
+};
+
+// ------------------------------------- SIMON'S GAME ------------------------------------- //
+
+// Creo i random Simon's Numbers e li stampo in pagina tramite un ciclo FOR
+const simonNumbers = createUniqueRandomNumbers(99);
+console.log("Simon's Numbers: " + simonNumbers);
+
+for (let i = 0; i < simonNumbers.length; i++) {
+  const numberElement = document.createElement("li");
+  numberElement.append(simonNumbers[i])
+  console.log(numberElement)
+  displaySimonNumbers.appendChild(numberElement);
+}
+
+// Preparo il valore di partenza del Countdown e lo stampo in pagina
+let seconds = 3;
+displayCountdown.innerText = seconds;
+
+// Creo un countdown che stampa in pagina ogni secondo
+const countdown = setInterval(() => {
+
+  displayCountdown.innerText = --seconds;
+  // Se il Countdown arriva a 0, si ferma, nasconde i numeri a schermo e chiede all'utente di inserire i numeri precedentemente visti
+  if(seconds === 0) {
+    // Ferma il countdown
+    clearInterval(countdown)
+ 
+    // I numeri vengono nascosti
+    displaySimonNumbers.classList.add("d-none");
+    
+  };
+
+}, 1000);
