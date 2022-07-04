@@ -1,6 +1,8 @@
 /*********** Generics ***********/
 body {background-color: lightslategray;}
 
+button:disabled {cursor: not-allowed;}
+
 #simon-game {
   width: 500px;
   padding: 1rem;

@@ -14,8 +14,12 @@
 
 
 // Dichiaro variabili DOM
+const startGame = document.getElementById("start-game");
 const displaySimonNumbers = document.getElementById("simon-number");
 const displayCountdown = document.getElementById("countdown");
+
+// Eseguo il gioco al Click del bottone "Start"
+startGame.addEventListener("click", () => {
 
 // ------------------------------------- FUNCTION ------------------------------------- //
 
@@ -53,6 +57,15 @@ const checkUserScore = (userNumbers, gameNumbers) => {
 
 // ------------------------------------- SIMON'S GAME ------------------------------------- //
 
+// Resetto eventuali precedenti contenuti e rendo visibile i nuovi
+displaySimonNumbers.innerHTML = "";
+displaySimonNumbers.classList.remove("d-none");
+
+// Disabilito il bottone "Play" e ne modifico il testo
+startGame.disabled = true;
+startGame.innerText = "Restart";
+
+
 // Creo i random Simon's Numbers e li stampo in pagina tramite un ciclo FOR
 const simonNumbers = createUniqueRandomNumbers(99);
 console.log("Simon's Numbers: " + simonNumbers);
@@ -65,7 +78,7 @@ for (let i = 0; i < simonNumbers.length; i++) {
 
 
 // Preparo il valore di partenza del Countdown e lo stampo in pagina
-let seconds = 3;
+let seconds = 30;
 displayCountdown.innerText = seconds;
 
 // Creo un countdown che stampa in pagina ogni secondo
@@ -104,8 +117,11 @@ const userPromptDelayed = setTimeout(() => {
     const checkScore = checkUserScore(userNumbers, simonNumbers);
     alert("Il tuo punteggio è: " + checkScore);
     console.log("Il tuo punteggio è: " + checkScore);
+
+    // Riabilito il bottone "Play/Restart" alla fine del gioco
+    startGame.disabled = false;
   }
 
 }, seconds * 1000 + 500);
 
-
+});
